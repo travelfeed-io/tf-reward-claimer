@@ -1,0 +1,32 @@
+{
+  "name": "tf-reward-claimer",
+  "version": "1.0.0",
+  "description": " Automatically claim Steem rewards using the posting authority",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/travelfeed-io/tf-reward-claimer.git"
+  },
+  "author": "Julian Peters",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^8.1.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "nodemon": "^1.19.3",
+    "prettier": "^1.18.2"
+  },
+  "bugs": {
+    "url": "https://github.com/travelfeed-io/tf-reward-claimer/issues"
+  },
+  "homepage": "https://github.com/travelfeed-io/tf-reward-claimer#readme",
+  "dependencies": {
+    "mongoose": "^5.7.7",
+    "steem": "^0.7.7"
+  }
+}
