@@ -32,7 +32,10 @@ const broadcastClaim = (
         console.warn(
           `Could not claim rewards balance for ${account}: ${result}`,
         );
-      else console.log(`Claimed rewards balance for ${account}: ${result}`);
+      else
+        console.log(
+          `Claimed rewards balance for ${account}: ${JSON.stringify(result)}`,
+        );
     },
   );
 };
