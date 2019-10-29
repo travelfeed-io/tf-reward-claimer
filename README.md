@@ -26,6 +26,7 @@ npm start
 
 ## Configuration
 
-| Environment | Value                       |
-| ----------- | --------------------------- |
-| `MONGO_URL` | URL of the MongoDB instance |
+| Environment          | Value                                     |
+| -------------------- | ----------------------------------------- |
+| `MONGO_URL`          | URL of the MongoDB instance               |
+| `TF_POSTING_PRIVATE` | Private posting key of authorized account |
