@@ -3,12 +3,11 @@ const { Preferences } = require('./models');
 const mongoose = require('mongoose');
 
 const getTrackedUsers = async () => {
-  const trackedUsers = [];
   return Preferences.find({ claimRewards: true })
+    .lean()
     .then(res => {
-      res.forEach(({ user }) => trackedUsers.push(user));
       mongoose.connection.close();
-      return trackedUsers;
+      return res;
     })
     .catch(err => {
       console.log(err);

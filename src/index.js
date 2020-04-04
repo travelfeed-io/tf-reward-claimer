@@ -1,9 +1,19 @@
 const { getTrackedUsers } = require('./db/db');
-const { getPendingRewards, broadcastClaim } = require('./steem/steem');
+const { getPendingRewards, broadcastClaim } = require('./steem/chainActions');
+const steem = require('steem');
+const hive = require('steem-js-patched');
+const { asyncForEach } = require('tf-post-parser');
 
-getTrackedUsers().then(users => {
+getTrackedUsers().then(async users => {
+  const chains = [];
   users.forEach(user => {
-    getPendingRewards(user).then(pendingRewards => {
+    if (user.postToHive && user.hiveUser)
+      chains.push({ user: user.hiveUser, chain: hive });
+    if (user.postToSteem && user.steemUser)
+      chains.push({ user: user.steemUser, chain: steem });
+  });
+  await asyncForEach(chains, async ({ user, chain }) => {
+    getPendingRewards(chain, user).then(pendingRewards => {
       const {
         reward_sbd_balance,
         reward_steem_balance,
@@ -15,6 +25,7 @@ getTrackedUsers().then(users => {
         reward_vesting_balance !== '0.000000 VESTS'
       ) {
         broadcastClaim(
+          chain,
           user,
           reward_sbd_balance,
           reward_steem_balance,

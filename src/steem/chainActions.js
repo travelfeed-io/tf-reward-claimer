@@ -1,11 +1,10 @@
-const steem = require('steem');
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 const privatePostingWif = process.env.TF_POSTING_PRIVATE;
 
-const getPendingRewards = account => {
-  return steem.api.getAccountsAsync([account]).then(r => {
+const getPendingRewards = (chain, account) => {
+  return chain.api.getAccountsAsync([account]).then(r => {
     const {
       reward_sbd_balance,
       reward_steem_balance,
@@ -16,12 +15,13 @@ const getPendingRewards = account => {
 };
 
 const broadcastClaim = (
+  chain,
   account,
   reward_sbd_balance,
   reward_steem_balance,
   reward_vesting_balance,
 ) => {
-  steem.broadcast.claimRewardBalance(
+  chain.broadcast.claimRewardBalance(
     privatePostingWif,
     account,
     reward_steem_balance,
