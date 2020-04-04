@@ -13,7 +13,7 @@ getTrackedUsers().then(async users => {
       chains.push({ user: user.steemUser, chain: steem });
   });
   await asyncForEach(chains, async ({ user, chain }) => {
-    getPendingRewards(chain, user).then(pendingRewards => {
+    await getPendingRewards(chain, user).then(pendingRewards => {
       const {
         reward_sbd_balance,
         reward_steem_balance,
