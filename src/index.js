@@ -4,6 +4,8 @@ const steem = require('steem');
 const hive = require('steem-js-patched');
 const { asyncForEach } = require('tf-post-parser');
 
+hive.api.setOptions({ url: 'https://anyx.io/' });
+
 getTrackedUsers().then(async users => {
   const chains = [];
   users.forEach(user => {
@@ -20,8 +22,8 @@ getTrackedUsers().then(async users => {
         reward_vesting_balance,
       } = pendingRewards;
       if (
-        reward_sbd_balance !== '0.000 SBD' ||
-        reward_steem_balance !== '0.000 STEEM' ||
+        reward_sbd_balance.substring(0, 5) !== '0.000' ||
+        reward_steem_balance.substring(0, 5) !== '0.000' ||
         reward_vesting_balance !== '0.000000 VESTS'
       ) {
         broadcastClaim(
