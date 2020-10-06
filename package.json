@@ -26,9 +26,9 @@
   },
   "homepage": "https://github.com/travelfeed-io/tf-reward-claimer#readme",
   "dependencies": {
+    "@hiveio/hive-js": "^0.8.4",
     "mongoose": "^5.9.7",
     "steem": "^0.7.11",
-    "steem-js-patched": "^1.0.0",
     "tf-post-parser": "git+https://github.com/travelfeed-io/tf-post-parser.git"
   }
 }

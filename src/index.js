@@ -1,10 +1,7 @@
 const { getTrackedUsers } = require('./db/db');
-const { getPendingRewards, broadcastClaim } = require('./steem/chainActions');
-const steem = require('steem');
-const hive = require('steem-js-patched');
 const { asyncForEach } = require('tf-post-parser');
-
-hive.api.setOptions({ url: 'https://anyx.io/' });
+const steem = require('./steem/chainActions');
+const hive = require('./hive/chainActions');
 
 getTrackedUsers().then(async users => {
   const chains = [];
@@ -15,7 +12,7 @@ getTrackedUsers().then(async users => {
       chains.push({ user: user.steemUser, chain: steem });
   });
   await asyncForEach(chains, async ({ user, chain }) => {
-    await getPendingRewards(chain, user).then(pendingRewards => {
+    await chain.getPendingRewards(user).then(pendingRewards => {
       const {
         reward_sbd_balance,
         reward_steem_balance,
@@ -26,8 +23,7 @@ getTrackedUsers().then(async users => {
         reward_steem_balance.substring(0, 5) !== '0.000' ||
         reward_vesting_balance !== '0.000000 VESTS'
       ) {
-        broadcastClaim(
-          chain,
+        chain.broadcastClaim(
           user,
           reward_sbd_balance,
           reward_steem_balance,
