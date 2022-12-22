@@ -13,6 +13,7 @@ getTrackedUsers().then(async users => {
   });
   await asyncForEach(chains, async ({ user, chain }) => {
     await chain.getPendingRewards(user).then(pendingRewards => {
+      if (!pendingRewards) return;
       const {
         reward_sbd_balance,
         reward_steem_balance,

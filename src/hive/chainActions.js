@@ -13,6 +13,7 @@ const privatePostingWif = process.env.TF_POSTING_PRIVATE;
 
 const getPendingRewards = account => {
   return chain.api.getAccountsAsync([account]).then(r => {
+    if (!r || !r[0]) return;
     const {
       reward_hbd_balance,
       reward_hive_balance,
