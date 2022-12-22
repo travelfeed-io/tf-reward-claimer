@@ -32,4 +32,5 @@ getTrackedUsers().then(async users => {
       } else console.log(`Nothing to claim for user ${user}`);
     });
   });
+  process.exit();
 });
